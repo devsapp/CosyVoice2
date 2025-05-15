@@ -1,0 +1,55 @@
+edition: 3.0.0 #  命令行YAML规范版本，遵循语义化版本（Semantic Versioning）规范
+name: cosyvoice2 # 应用名称
+access: {{ access }}
+vars:
+  region: {{ region }}
+  functionName: "cosyvoice2"
+  gpu: {{ gpu }}
+  imageUrl: "registry.${vars.region}.aliyuncs.com/fc-demo2/ohyee-test:cosyvoice2-v3"
+  
+resources:
+  cosyvoice2:
+    component: model
+    props:
+      region: ${vars.region}
+      name: '${vars.functionName}'
+      description: 'cosyvoice2 函数'
+      logConfig: auto
+
+      modelConfig:
+        sourceType: custom-container
+
+      # 实例规格
+      timeout: 600
+      diskSize: 512
+      cpu: 8
+      memorySize: 65536
+      instanceConcurrency: 1
+      gpuConfig:
+        gpuMemorySize: 49152
+        gpuType: '${vars.gpu}'
+      provisionConfig:
+        target: 1
+        alwaysAllocateGPU: false
+
+      # 运行时
+      runtime: custom-container
+      customContainerConfig:
+        port: 50000
+        image: ${vars.imageUrl} 
+        command: ["python3", "webui.py", "--port", "50000", "--model_dir", "pretrained_models/CosyVoice2-0.5B"]
+        instanceConcurrency: 1
+        webServerMode: true
+        # 暂时性解决 updatefunction 不支持 acree 的问题
+        registryConfig:
+          certConfig:
+            insecure: false
+
+      httpTrigger: auto
+
+      customDomain: 
+        protocol: "HTTP"  
+        route:  
+          path: "/*"  
+          qualifier: "LATEST" 
+        domainName  : auto

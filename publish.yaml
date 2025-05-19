@@ -31,6 +31,14 @@ Parameters:
       description: 创建应用所在的地区
       enum:
         - cn-hangzhou
+        - cn-beijing
+        - cn-shanghai
+
+    name:
+      title: 名称
+      type: string
+      default: cosyvoice2-${default-suffix}
+      description: CosyVoice 服务名称
 
     gpu:
       title: 显卡类型
@@ -39,3 +47,4 @@ Parameters:
       description: 显卡类型（默认会为您选择对应规格最大配置的机器）
       enum:
         - fc.gpu.ada.1
+        - fc.gpu.tesla.1

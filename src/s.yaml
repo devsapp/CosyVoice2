@@ -3,9 +3,9 @@ name: cosyvoice2 # 应用名称
 access: {{ access }}
 vars:
   region: {{ region }}
-  functionName: "cosyvoice2"
+  functionName: {{ name}}
   gpu: {{ gpu }}
-  imageUrl: "registry.${vars.region}.aliyuncs.com/fc-demo2/ohyee-test:cosyvoice2-v3"
+  imageUrl: "cap-demo-public-registry.cn-hangzhou.cr.aliyuncs.com/cap-app/image-cosyvoice2-gradio:v1"
   
 resources:
   cosyvoice2:
@@ -24,7 +24,7 @@ resources:
       diskSize: 512
       cpu: 8
       memorySize: 65536
-      instanceConcurrency: 1
+      instanceConcurrency: 100
       gpuConfig:
         gpuMemorySize: 49152
         gpuType: '${vars.gpu}'
@@ -38,7 +38,7 @@ resources:
         port: 50000
         image: ${vars.imageUrl} 
         command: ["python3", "webui.py", "--port", "50000", "--model_dir", "pretrained_models/CosyVoice2-0.5B"]
-        instanceConcurrency: 1
+        instanceConcurrency: 100
         webServerMode: true
         # 暂时性解决 updatefunction 不支持 acree 的问题
         registryConfig:

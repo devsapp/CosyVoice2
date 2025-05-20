@@ -31,7 +31,6 @@ Parameters:
       description: 创建应用所在的地区
       enum:
         - cn-hangzhou
-        - cn-beijing
         - cn-shanghai
 
     name:

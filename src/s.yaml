@@ -23,10 +23,10 @@ resources:
       timeout: 600
       diskSize: 512
       cpu: 8
-      memorySize: 65536
+      memorySize: {{ if gpu === 'fc.gpu.ada.1'}}65536{{ else }}32768{{/if}}
       instanceConcurrency: 100
       gpuConfig:
-        gpuMemorySize: 49152
+        gpuMemorySize: {{ if gpu === 'fc.gpu.ada.1'}}49152{{ else }}16384{{/if}}
         gpuType: '${vars.gpu}'
       provisionConfig:
         target: 1

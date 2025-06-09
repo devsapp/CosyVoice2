@@ -4,7 +4,7 @@ Name: CosyVoice2
 Version: dev
 Provider:
   - 阿里云 # 取值内容参考：https://api.devsapp.cn/v3/common/args.html
-Description: 部署 CosyVoice2 到 FunctionAI
+Description: 部署 CosyVoice2 WebUI 到 FunctionAI
 
 Tags: #标签详情
   - 部署函数
@@ -32,6 +32,7 @@ Parameters:
       enum:
         - cn-hangzhou
         - cn-shanghai
+        - cn-beijing
 
     name:
       title: 名称
